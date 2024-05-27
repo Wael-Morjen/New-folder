@@ -1,0 +1,39 @@
+ALGORITHM isPalindromeRecursive
+VAR
+    word : STRING;
+END
+
+FUNCTION isPalindromeRecursive(word : STRING) : BOOLEAN
+VAR
+    firstChar, lastChar : CHARACTER;
+    substring : STRING;
+BEGIN
+    // Base case: if the word has 0 or 1 characters, it's a palindrome
+    IF Length(word) <= 1 THEN
+        RETURN TRUE;
+    END IF;
+
+    // Compare the first and last characters
+    firstChar := GetCharacterAtIndex(word, 0);
+    lastChar := GetCharacterAtIndex(word, Length(word) - 1);
+
+    IF firstChar = lastChar THEN
+        // Recur with the substring excluding the first and last characters
+        substring := GetSubstring(word, 1, Length(word) - 2);
+        RETURN isPalindromeRecursive(substring);
+    ELSE
+        // If the first and last characters are not the same, it's not a palindrome
+        RETURN FALSE;
+    END IF;
+END FUNCTION
+
+BEGIN
+    // Main program
+    word := "cac";
+    // Check if the word is a palindrome using the recursive method
+    IF isPalindromeRecursive(word) THEN
+        OUTPUT "The word " + word + " is a palindrome";
+    ELSE
+        OUTPUT "The word " + word + " is NOT a palindrome";
+    END IF;
+END
